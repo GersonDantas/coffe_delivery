@@ -47,4 +47,31 @@ describe('Cart', () => {
     cart.removeProduct('3');
     expect(cart.getProducts()).toHaveLength(0);
   });
+
+  test('Should calculate the total price of the cart', () => {
+    const cart = new Cart();
+  
+    const product1 = {
+      id: '1',
+      title: 'Expresso Tradicional',
+      image: 'image1.png',
+      description: 'O tradicional café feito com água quente e grãos moídos',
+      price: 9.9,
+      categories: ['TRADICIONAL'],
+    }
+  
+    const product2 = {
+      id: '2',
+      title: 'Latte',
+      image: 'image2.png',
+      description: 'Café com leite vaporizado e espuma',
+      price: 12.5,
+      categories: ['TRADICIONAL', 'COM LEITE'],
+    }
+  
+    cart.addProduct(product1);
+    cart.addProduct(product2);
+
+    expect(cart.getTotal()).toBe(22.4);
+  });
 });
