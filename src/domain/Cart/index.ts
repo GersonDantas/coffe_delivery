@@ -14,6 +14,10 @@ class Cart {
   removeProduct (productId: string): void {
     this.products = this.products.filter(({id}) => id !== productId)
   }
+
+  getTotal (): number {
+    return this.products.reduce((total, {price}) => total + price, 0)
+  }
 }
 
 export default Cart;
