@@ -10,6 +10,10 @@ class Cart {
   getProducts(): ProductProps[] {
     return this.products;
   }
+
+  removeProduct (productId: string): void {
+    this.products = this.products.filter(({id}) => id !== productId)
+  }
 }
 
 export default Cart;
