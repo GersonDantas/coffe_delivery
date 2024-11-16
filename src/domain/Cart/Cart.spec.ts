@@ -29,4 +29,22 @@ describe('Cart', () => {
     expect(cart.getProducts()).toContain(product2);
     expect(cart.getProducts().length).toBe(2);
   });
+
+  test('Should remove a product from the cart', () => {
+    const cart = new Cart();
+  
+    const product = {
+      id: '3',
+      title: 'Expresso Tradicional',
+      image: 'image1.png',
+      description: 'O tradicional café feito com água quente e grãos moídos',
+      price: 9.9,
+      categories: ['TRADICIONAL'],
+    }
+  
+    cart.addProduct(product);
+    expect(cart.getProducts()).toHaveLength(1);
+    cart.removeProduct('3');
+    expect(cart.getProducts()).toHaveLength(0);
+  });
 });
