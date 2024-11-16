@@ -1,8 +1,17 @@
 export default {
-  preset: 'ts-jest',
-  testEnvironment: 'node',
+  roots: ['<rootDir>/src'],
+  collectCoverageFrom: [
+    '<rootDir>/src/**/*.{ts,tsx}',
+  ],
+  coverageDirectory: 'coverage',
+  testPathIgnorePatterns: [
+    '<rootDir>/node_modules/'
+  ],
+  testEnvironment: 'jest-environment-jsdom',
   transform: {
-    '^.+\\.tsx?$': 'ts-jest',
+    '.+\\.(ts|tsx)$': 'ts-jest'
   },
-  transformIgnorePatterns: ['/node_modules/'],
-};
+  moduleNameMapper: {
+    '@/(.*)': '<rootDir>/src/$1'
+  }
+}
