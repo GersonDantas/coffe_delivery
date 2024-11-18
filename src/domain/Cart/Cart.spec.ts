@@ -1,4 +1,4 @@
-import Cart from '.';
+import {Cart} from '.';
 
 describe('Cart', () => {
   test('Should Cart have all products in list', () => {
