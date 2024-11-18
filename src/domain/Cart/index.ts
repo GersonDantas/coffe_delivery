@@ -1,6 +1,6 @@
 import { ProductProps } from '../models';
 
-class Cart {
+export class Cart {
   private products: ProductProps[] = [];
 
   addProduct(product: ProductProps): void {
@@ -19,5 +19,3 @@ class Cart {
     return this.products.reduce((total, {price}) => total + price, 0)
   }
 }
-
-export default Cart;
