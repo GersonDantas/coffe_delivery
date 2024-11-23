@@ -1,28 +1,22 @@
-// src/styles/theme.js
-
-const theme = {
+export const defaultTheme = {
   colors: {
-    product: {
-      yellowDark: '#C47F17',
-      yellow: '#DBAC2C',
-      yellowLight: '#F1E9C9',
-      purpleDark: '#4B2995',
-      purple: '#8047F8',
-      purpleLight: '#EBE5F9',
-    },
-    base: {
-      title: '#272221',
-      subtitle: '#403937',
-      text: '#574F4D',
-      label: '#8D8686',
-      hover: '#D7D5D5',
-      button: '#E6E5E5',
-      input: '#EDEDED',
-      card: '#F3F2F2',
-      background: '#FAFAFA',
-      white: '#FFFFFF',
-    },
-  },
-};
+    white: '#FFFFFF',
+    background: '#FAFAFA',
+    'base-card': '#F3F2F2',
+    'base-input': '#EDEDED',
+    'base-button': '#E6E6E5',
+    'base-hover': '#D7D5D5',
+    'base-label': '#8D8686',
+    'base-text': '#574F4D',
+    'base-subtitle': '#403937',
+    'base-title': '#272221',
 
-export default theme;
+    'purple-light': '#EBE5F9',
+    purple: '#8047F8',
+    'purple-dark': '#4B2995',
+
+    'yellow-light': '#F1E9C9',
+    yellow: '#DBAC2C',
+    'yellow-dark': '#C47F17',
+  },
+}
