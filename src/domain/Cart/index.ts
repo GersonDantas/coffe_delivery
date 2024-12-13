@@ -18,4 +18,10 @@ export class Cart {
   getTotal (): number {
     return this.products.reduce((total, {price}) => total + price, 0)
   }
+
+  static fromJSON(json: any): Cart {
+    const cart = new Cart();
+    cart.products = json.products.map((p: any) => new Product(p));
+    return cart;
+  }
 }

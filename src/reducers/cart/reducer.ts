@@ -1,81 +1,31 @@
-import { produce } from 'immer'
-import { ActionTypes, Actions } from './actions'
-import { OrderInfo } from '../../pages/Cart'
-
-export interface Item {
-  id: string
-  quantity: number
-}
-
-export interface Order extends OrderInfo {
-  id: number
-  items: Item[]
-}
+import { Cart } from '@/domain/Cart';
+import { Product } from '@/domain/Product';
+import { ActionType, Action } from './actions';
 
 interface CartState {
-  cart: Item[]
-  orders: Order[]
+  cart: Cart;
 }
 
-export function cartReducer(state: CartState, action: Actions) {
+export const initialState: CartState = {
+  cart: new Cart(),
+};
+
+export const cartReducer = (state = initialState, action: Action): CartState => {
   switch (action.type) {
-    case ActionTypes.ADD_ITEM:
-      return produce(state, (draft) => {
-        const itemAlreadyAdded = draft.cart.find(
-          (item) => item.id === action.payload.item.id,
-        )
+    case ActionType.ADD_PRODUCT:{
+      const productToAdd = new Product(action.payload);
+      state.cart.addProduct(productToAdd);
+      return { ...state };
+    }
+    case ActionType.REMOVE_PRODUCT:
+      state.cart.removeProduct(action.payload.id);
+      return { ...state };
 
-        if (itemAlreadyAdded) {
-          itemAlreadyAdded.quantity += action.payload.item.quantity
-        } else {
-          draft.cart.push(action.payload.item)
-        }
-      })
-
-    case ActionTypes.REMOVE_ITEM:
-      return produce(state, (draft) => {
-        const itemToRemoveId = draft.cart.findIndex(
-          (item) => item.id === action.payload.itemId,
-        )
-        draft.cart.splice(itemToRemoveId, 1)
-      })
-
-    case ActionTypes.INCREMENT_ITEM_QUANTITY:
-      return produce(state, (draft) => {
-        const itemToIncrement = draft.cart.find(
-          (item) => item.id === action.payload.itemId,
-        )
-
-        if (itemToIncrement?.id) {
-          itemToIncrement.quantity += 1
-        }
-      })
-
-    case ActionTypes.DECREMENT_ITEM_QUANTITY:
-      return produce(state, (draft) => {
-        const itemToDecrement = draft.cart.find(
-          (item) => item.id === action.payload.itemId,
-        )
-
-        if (itemToDecrement?.id && itemToDecrement.quantity > 1) {
-          itemToDecrement.quantity -= 1
-        }
-      })
-
-    case ActionTypes.CHECKOUT_CART:
-      return produce(state, (draft) => {
-        const newOrder = {
-          id: new Date().getTime(),
-          items: state.cart,
-          ...action.payload.order,
-        }
-        draft.orders.push(newOrder)
-        draft.cart = []
-
-        action.payload.callback(`/order/${newOrder.id}/success`)
-      })
+    case ActionType.CLEAR_CART:
+      state.cart = new Cart();
+      return { ...state };
 
     default:
-      return state
+      return state;
   }
-}
+};

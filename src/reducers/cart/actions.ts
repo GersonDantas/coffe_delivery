@@ -1,84 +1,30 @@
-import { NavigateFunction } from 'react-router-dom'
-import { OrderInfo } from '../../pages/Cart'
-import { Item } from './reducer'
-
-export enum ActionTypes {
-  ADD_ITEM = 'ADD_ITEM',
-  REMOVE_ITEM = 'REMOVE_ITEM',
-  INCREMENT_ITEM_QUANTITY = 'INCREMENT_ITEM_QUANTITY',
-  DECREMENT_ITEM_QUANTITY = 'DECREMENT_ITEM_QUANTITY',
-  CHECKOUT_CART = 'CHECKOUT_CART',
+export enum ActionType {
+  ADD_PRODUCT = 'ADD_PRODUCT',
+  REMOVE_PRODUCT = 'REMOVE_PRODUCT',
+  CLEAR_CART = 'CLEAR_CART',
 }
 
-export type Actions =
-  | {
-      type: ActionTypes.ADD_ITEM
-      payload: {
-        item: Item
-      }
-    }
-  | {
-      type:
-        | ActionTypes.DECREMENT_ITEM_QUANTITY
-        | ActionTypes.INCREMENT_ITEM_QUANTITY
-        | ActionTypes.REMOVE_ITEM
-      payload: {
-        itemId: Item['id']
-      }
-    }
-  | {
-      type: ActionTypes.CHECKOUT_CART
-      payload: {
-        order: OrderInfo
-        callback: NavigateFunction
-      }
-    }
-
-export function addItemAction(item: Item) {
-  return {
-    type: ActionTypes.ADD_ITEM,
-    payload: {
-      item,
-    },
-  } satisfies Actions
+interface AddProductAction {
+  type: ActionType.ADD_PRODUCT;
+  payload: {
+    id: string;
+    title: string;
+    image: string;
+    description: string;
+    price: number;
+    categories: string[];
+  };
 }
 
-export function removeItemAction(itemId: Item['id']) {
-  return {
-    type: ActionTypes.REMOVE_ITEM,
-    payload: {
-      itemId,
-    },
-  } satisfies Actions
+interface RemoveProductAction {
+  type: ActionType.REMOVE_PRODUCT;
+  payload: {
+    id: string;
+  };
 }
 
-export function incrementItemQuantityAction(itemId: Item['id']) {
-  return {
-    type: ActionTypes.INCREMENT_ITEM_QUANTITY,
-    payload: {
-      itemId,
-    },
-  } satisfies Actions
+interface ClearCartAction {
+  type: ActionType.CLEAR_CART;
 }
 
-export function decrementItemQuantityAction(itemId: Item['id']) {
-  return {
-    type: ActionTypes.DECREMENT_ITEM_QUANTITY,
-    payload: {
-      itemId,
-    },
-  } satisfies Actions
-}
-
-export function checkoutCartAction(
-  order: OrderInfo,
-  callback: NavigateFunction,
-) {
-  return {
-    type: ActionTypes.CHECKOUT_CART,
-    payload: {
-      order,
-      callback,
-    },
-  } satisfies Actions
-}
+export type Action = AddProductAction | RemoveProductAction | ClearCartAction;
